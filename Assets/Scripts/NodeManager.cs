@@ -31,7 +31,14 @@ public class NodeManager : MonoBehaviour
             nodes[i].selected = true;
 
             for (int k = 0; k < nodes.Length; k++) {
-                if (k != nodes[i].id && _random.Next(0, 2) == 0) nodes[i].knownNodes.Add(nodes[k]);
+                if (k != nodes[i].id && _random.Next(0, 2) == 0) {
+                    if (!nodes[i].knownNodes.Contains(nodes[k])) {
+                        nodes[i].knownNodes.Add(nodes[k]);
+                    }
+                    if (!nodes[k].knownNodes.Contains(nodes[i])) {
+                        nodes[k].knownNodes.Add(nodes[i]);
+                    }
+                }
             }
             
             nodes[i].SetupFlashlight();
